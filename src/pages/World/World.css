@@ -1,0 +1,48 @@
+.worldContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.headerContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 100px;
+  padding: 20px;
+}
+
+.submit {
+  width: 50%;
+  height: 200px;
+}
+
+.formInnerContainer {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+
+.label {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 16px;
+  margin-right: 10px;
+}
+
+.input {
+  margin-left: 5px;
+}
+
+.boardContainer {
+  display: flex;
+  flex: 1;
+  padding: 0 60px;
+  justify-content: center;
+}
