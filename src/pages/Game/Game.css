@@ -14,13 +14,13 @@
   display: flex;
   flex-direction: column;
   width: 200px;
-  height: 100px;
-  padding: 20px;
+  height: 50px;
+  padding: 20px 20px 0 20px;
 }
 
 .submit {
   width: 50%;
-  height: 200px;
+  margin: 5px;
 }
 
 .formInnerContainer {
@@ -45,4 +45,11 @@
   flex: 1;
   padding: 0 60px;
   justify-content: center;
+}
+
+.formButtons {
+  display: flex;
+  width: 20%;
+  padding: 0 20px 20px;
+  justify-content: space-between;
 }

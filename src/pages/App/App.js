@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import World from '../World/World';
+import Game from '../Game/Game';
 
 export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <World />
+        <Game />
       </div>
     );
   }
