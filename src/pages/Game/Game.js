@@ -93,9 +93,9 @@ export default class Game extends Component {
     for(var i = 0; i < this.state.size[0]; i++) {
       for (var j = 0; j < this.state.size[1]; j++){
         if(this.state.universe.isCellAlive(i + " , " + j)){
-          cellRow.push(<Cell key={[i, j]} position={i + " , " + j} live={true} storeCell={this.storeCell.bind(this)}/>);
+          cellRow.push(<Cell key={[i, j]} position={{x: i, y: j}} live={true} storeCell={this.storeCell.bind(this)}/>);
         } else {
-          cellRow.push(<Cell key={[i, j]} position={i + " , " + j} live={false} storeCell={this.storeCell.bind(this)}/>);
+          cellRow.push(<Cell key={[i, j]} position={{x: i, y: j}} live={false} storeCell={this.storeCell.bind(this)}/>);
         }
       }
       newWorld.push(<div className="row" key={i}>{cellRow}</div>);
