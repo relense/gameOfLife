@@ -6,16 +6,8 @@
 
 .headerContainer {
   display: flex;
+  flex-direction: column;
   flex: 1;
-  flex-direction: column;
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  width: 200px;
-  height: 50px;
-  padding: 20px 20px 0 20px;
 }
 
 .submit {
@@ -23,15 +15,15 @@
   margin: 5px;
 }
 
-.formInnerContainer {
+.headerInnerContainer {
   display: flex;
-  flex-direction: row;
   text-align: center;
+  width: 200px;
+  padding: 20px 20px 0 20px;
 }
 
 .label {
   display: flex;
-  flex-direction: row;
   margin-bottom: 16px;
   margin-right: 10px;
 }
@@ -43,13 +35,30 @@
 .boardContainer {
   display: flex;
   flex: 1;
-  padding: 0 60px;
   justify-content: center;
+  padding: 0 60px;
 }
 
 .formButtons {
   display: flex;
+  justify-content: space-between;
   width: 20%;
   padding: 0 20px 20px;
-  justify-content: space-between;
+}
+
+.cellContainerDead {
+  display: flex;
+  flex: 1;
+  padding: 10px;
+  margin: 1px;
+  border: 1px solid black;
+}
+
+.cellContainerLive {
+  display: flex;
+  flex: 1;
+  padding: 10px;
+  margin: 1px;
+  border: 1px solid black;
+  background-color: black;
 }

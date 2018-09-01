@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import './Game.css';
-import Cell from '../../components/Cell/Cell';
-import Universe from '../../logic/Universe';
+import './App.css';
+import Universe from './logic/Universe';
 
 export default class Game extends Component {
   constructor(props) {
@@ -17,6 +16,7 @@ export default class Game extends Component {
     this.startGame = this.startGame.bind(this);
     this.stopGame = this.stopGame.bind(this);
     this.renderBoard = this.renderBoard.bind(this);
+    this.storeCell = this.storeCell.bind(this);
   }
 
   handleRowChange(event) {
@@ -93,9 +93,15 @@ export default class Game extends Component {
     for(var i = 0; i < this.state.size[0]; i++) {
       for (var j = 0; j < this.state.size[1]; j++){
         if(this.state.universe.isCellAlive(i + " , " + j)){
-          cellRow.push(<Cell key={[i, j]} position={{x: i, y: j}} live={true} storeCell={this.storeCell.bind(this)}/>);
+          cellRow.push(
+            // <div key={[i, j]} onClick={() => this.storeCell({x: i, y: j})} className="cellContainerLive"></div>
+            <Cell key={[i, j]} position={{x: i, y: j}} live={true} storeCell={this.storeCell.bind(this)}/>
+          );
         } else {
-          cellRow.push(<Cell key={[i, j]} position={{x: i, y: j}} live={false} storeCell={this.storeCell.bind(this)}/>);
+          cellRow.push(
+            // <div key={[i, j]} onClick={() => this.storeCell({x: i, y: j})} className="cellContainerDead"></div>
+            <Cell key={[i, j]} position={{x: i, y: j}} live={false} storeCell={this.storeCell.bind(this)}/>
+          );
         }
       }
       newWorld.push(<div className="row" key={i}>{cellRow}</div>);
@@ -109,18 +115,16 @@ export default class Game extends Component {
     return (
       <div className="worldContainer">
         <div className="headerContainer">
-          <form className="form" onSubmit={this.handleSubmit}>
-            <div className="formInnerContainer">
-              <label className="label">
-                Rows:
-                <input className="input" type="text" value={this.state.size[1]} onChange={this.handleRowChange} />
-              </label>
-              <label className="label">
-                Columns:
-                <input className="input" type="text" value={this.state.size[0]} onChange={this.handleColumnChange} />
-              </label>
-            </div>
-          </form>
+          <div className="headerInnerContainer">
+            <label className="label">
+              Rows:
+              <input className="input" type="text" value={this.state.size[1]} onChange={this.handleRowChange} />
+            </label>
+            <label className="label">
+              Columns:
+              <input className="input" type="text" value={this.state.size[0]} onChange={this.handleColumnChange} />
+            </label>
+          </div>
           <div className="formButtons">
             <button className="submit" onClick={this.startGame}>Start</button>
             <button className="submit" onClick={this.stopGame}>Stop</button>
@@ -131,6 +135,14 @@ export default class Game extends Component {
         {this.renderBoard()}
         </div>
       </div>
+    );
+  }
+}
+
+class Cell extends Component {
+  render() {
+    return (
+      <div onClick={() => this.props.storeCell(this.props.position)} className={this.props.live ? "cellContainerLive" : "cellContainerDead"}></div>
     );
   }
 }
