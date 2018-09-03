@@ -94,12 +94,10 @@ export default class Game extends Component {
       for (var j = 0; j < this.state.size[1]; j++){
         if(this.state.universe.isCellAlive(i + " , " + j)){
           cellRow.push(
-            // <div key={[i, j]} onClick={() => this.storeCell({x: i, y: j})} className="cellContainerLive"></div>
             <Cell key={[i, j]} position={{x: i, y: j}} live={true} storeCell={this.storeCell.bind(this)}/>
           );
         } else {
           cellRow.push(
-            // <div key={[i, j]} onClick={() => this.storeCell({x: i, y: j})} className="cellContainerDead"></div>
             <Cell key={[i, j]} position={{x: i, y: j}} live={false} storeCell={this.storeCell.bind(this)}/>
           );
         }
@@ -125,7 +123,7 @@ export default class Game extends Component {
               <input className="input" type="text" value={this.state.size[0]} onChange={this.handleColumnChange} />
             </label>
           </div>
-          <div className="formButtons">
+          <div className="headerButtons">
             <button className="submit" onClick={this.startGame}>Start</button>
             <button className="submit" onClick={this.stopGame}>Stop</button>
           </div>

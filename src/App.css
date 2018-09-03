@@ -39,7 +39,7 @@
   padding: 0 60px;
 }
 
-.formButtons {
+.headerButtons {
   display: flex;
   justify-content: space-between;
   width: 20%;
