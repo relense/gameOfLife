@@ -3,6 +3,7 @@ export default class Universe {
     this.generation = generation;
     this.liveCells = liveCells;
     this.nextGeneration = new Map();
+    this.deadCells = new Map();
   }
 
   getGeneration() {
@@ -14,7 +15,7 @@ export default class Universe {
   }
 
   addCell(position) {
-    this.liveCells.set(position, true);
+    this.liveCells.set(position.x + " , " + position.y, {x: position.x, y: position.y});
   }
 
   removeCell(position) {
@@ -26,8 +27,8 @@ export default class Universe {
   }
 
   storeCell(position) {
-    if(this.isCellAlive(position)) {
-      this.removeCell(position);
+    if(this.isCellAlive(position.x + " , " + position.y)) {
+      this.removeCell(position.x + " , " + position.y);
     } else {
       this.addCell(position);
     }
@@ -35,43 +36,58 @@ export default class Universe {
     return new Universe(this.generation, this.liveCells);
   }
 
-  addGeneration() {
-    for(var i = 0; i < 200; i++){
-      for(var j = 0; j < 200; j++){
-          this.calculateNeighboors({x: i, y: j});
-      }
-    }
+  addGeneration(){
+    this.liveCells.forEach((item) => {
+      this.calculateLiveCellsNeighboors(item);
+    })
+
+    this.deadCells.forEach((item) => {
+      this.calculateDeadCellsNeighboors(item);
+    })
 
     this.generation++;
 
-    return new Universe(this.generation, this.nextGeneration);
+    return new Universe(this.generation, this.nextGeneration)
   }
 
-  calculateNeighboors(position) {
+  calculateLiveCellsNeighboors(position) {
     var liveNeighboors = 0;
 
     for(var i = position.x - 1; i <= position.x + 1; i++){
       for(var j = position.y - 1; j <= position.y + 1; j++){
+        
+        if(i === position.x && j === position.y)
+          continue;
+
         if(this.isCellAlive(i + " , " + j)){
-          if(i === position.x && j === position.y){
-            continue;
-          } else {
             liveNeighboors++;
-          }
+        } else {
+          this.deadCells.set(i + " , " +j, {x: i, y: j})
         }
       }
     }
 
-    if(this.isCellAlive(position.x + " , " + position.y)) {
-      console.log("live: " + liveNeighboors)
-      if((liveNeighboors === 2 || liveNeighboors === 3))
-        this.nextGeneration.set(position.x + " , " + position.y, true);
+    if((liveNeighboors === 2 || liveNeighboors === 3))
+      this.nextGeneration.set(position.x + " , " + position.y, {x: position.x, y: position.y});
+  }
 
-    } else {
-      if(liveNeighboors === 3)
-        this.nextGeneration.set(position.x + " , " + position.y, true);
-    }
+  calculateDeadCellsNeighboors(position) {
+    var liveNeighboors = 0;
 
+    for(var i = position.x - 1; i <= position.x + 1; i++){
+      for(var j = position.y - 1; j <= position.y + 1; j++){
+
+        if(i === position.x && j === position.y)
+          continue;
+
+        if(this.isCellAlive(i + " , " + j)){
+            liveNeighboors++;
+          }
+        }
+      }
+
+    if(liveNeighboors === 3)
+      this.nextGeneration.set(position.x + " , " + position.y, {x: position.x, y: position.y});
   }
 
 }

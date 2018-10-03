@@ -9,11 +9,17 @@ export default class Game extends Component {
       universe: new Universe(),
       size: [90, 20],
       gameRunning: false,
-      interval: 100
     }
+
+    this.handleColumnChange = this.handleColumnChange.bind(this);
+    this.handleRowChange = this.handleRowChange.bind(this);
+    this.startGame = this.startGame.bind(this);
+    this.stopGame = this.stopGame.bind(this);
+    this.renderBoard = this.renderBoard.bind(this);
+    this.storeCell = this.storeCell.bind(this);
   }
 
-  handleRowChange = (event) => {
+  handleRowChange(event) {
     if(!this.state.gameRunning) {
       var actualSize = this.state.size;
 
@@ -30,7 +36,7 @@ export default class Game extends Component {
     }
   }
 
-  handleColumnChange = (event) => {
+  handleColumnChange(event) {
     if(!this.state.gameRunning) {
       var actualSize = this.state.size;
       if(event.target.value < 90)
@@ -46,23 +52,17 @@ export default class Game extends Component {
     }
   }
 
-  changeInterval = (event) => {
-    this.setState({
-      interval: event.target.value
-    })
-  }
-
-  startGame = () => {
+  startGame() {
     if(!this.state.gameRunning){
       this.setState({
         gameRunning: true,
       }, () => {
-        this.intervalRef = setInterval(() => this.runGame(), this.state.interval);
+        this.intervalRef = setInterval(() => this.runGame(), 100);
       })
     }
   }
 
-  stopGame = () => {
+  stopGame(){
     this.setState({
       gameRunning: false
     }, () => {
@@ -72,13 +72,13 @@ export default class Game extends Component {
     })
   }
 
-  runGame = () => {
+  runGame() {
     this.setState({
       universe: this.state.universe.addGeneration()
     })
   }
 
-  storeCell = (position) => {
+  storeCell(position) {
     if(!this.state.gameRunning) {
       this.setState({
         universe: this.state.universe.storeCell(position)
@@ -86,7 +86,7 @@ export default class Game extends Component {
     }
   }
 
-  renderBoard = () => {
+  renderBoard() {
     var newWorld = [];
     var cellRow = [];
 
@@ -121,10 +121,6 @@ export default class Game extends Component {
             <label className="label">
               Columns:
               <input className="input" type="text" value={this.state.size[0]} onChange={this.handleColumnChange} />
-            </label>
-            <label className="label">
-              Interval:
-              <input className="input" type="text" value={this.state.interval} onChange={this.changeInterval} />
             </label>
           </div>
           <div className="headerButtons">
