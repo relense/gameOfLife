@@ -57,7 +57,7 @@ export default class Game extends Component {
       this.setState({
         gameRunning: true,
       }, () => {
-        this.intervalRef = setInterval(() => this.runGame(), 10);
+        this.intervalRef = setInterval(() => this.runGame(), 100);
       })
     }
   }
