@@ -9,6 +9,7 @@ export default class Game extends Component {
       universe: new Universe(),
       size: [90, 20],
       gameRunning: false,
+      interval: 100
     }
 
     this.handleColumnChange = this.handleColumnChange.bind(this);
@@ -52,12 +53,20 @@ export default class Game extends Component {
     }
   }
 
+  changeInterval = (event) => {
+    if(!this.state.gameRunning){
+      this.setState({
+        interval: event.target.value
+      })
+    }
+  }
+
   startGame() {
     if(!this.state.gameRunning){
       this.setState({
         gameRunning: true,
       }, () => {
-        this.intervalRef = setInterval(() => this.runGame(), 100);
+        this.intervalRef = setInterval(() => this.runGame(), this.state.interval);
       })
     }
   }
@@ -121,6 +130,10 @@ export default class Game extends Component {
             <label className="label">
               Columns:
               <input className="input" type="text" value={this.state.size[0]} onChange={this.handleColumnChange} />
+            </label>
+            <label className="label">
+              Interval:
+              <input className="input" type="text" value={this.state.interval} onChange={this.changeInterval} />
             </label>
           </div>
           <div className="headerButtons">
